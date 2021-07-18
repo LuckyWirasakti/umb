@@ -48,7 +48,7 @@ class BuyViewSet(LoginRequiredMixin, ListView):
         q = self.request.GET.get('q', None)
         qs = super().get_queryset()
         if q is not None:
-            return qs.filter(name__startswith=q)
+            return qs.filter(name__contains=q)
         return qs
 
 class WeightViewSet(LoginRequiredMixin, ListView):

@@ -18,13 +18,13 @@
     $('#truck_blank').show();
     $('#truck_fill').hide();
     $('#btn_truck_blank').addClass('disabled');
-    $('#name_weight').text('Netto');
+    $('#name_weight').text('Tara');
     $('#btn_truck_blank').click(() => {
         $('#truck_blank').show();
         $('#truck_fill').hide();
         $('#btn_truck_blank').addClass('disabled');
         $('#btn_truck_fill').removeClass('disabled');
-        $('#name_weight').text('Netto');
+        $('#name_weight').text('Tara');
     });
     $('#btn_truck_fill').click(() => {
         $('#truck_blank').hide();
@@ -53,8 +53,8 @@
                 'alert': alret,
                 'name': name,
                 'bruto': bruto,
-                'tara': tara,
-                'netto': netto,
+                'tara':netto,
+                'netto': tara,
                 'discount': discount,
                 'price': price,
                 'amount_weight': amount_weight,
@@ -121,7 +121,7 @@
             dataType: 'json',
             success: function (data) {
                 value = $.parseJSON(data.instance)[0].fields;
-                $('#truck_blank').val(value.netto);
+                $('#truck_blank').val(value.tara);
                 $('#truck_fill').val(value.bruto);
                 $('#alert').val(value.alert);
                 $('#name').val(value.name);
@@ -164,8 +164,8 @@
                 'alert': alret,
                 'name': name,
                 'bruto': bruto,
-                'tara': tara,
-                'netto': netto,
+                'tara': netto,
+                'netto': tara,
                 'discount': discount,
                 'price': price,
                 'amount_weight': amount_weight,
