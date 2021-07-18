@@ -44,6 +44,13 @@ class BuyViewSet(LoginRequiredMixin, ListView):
     paginate_by = 10
     template_name = 'buy.html'
 
+    def get_queryset(self):
+        q = self.request.GET.get('q', None)
+        qs = super().get_queryset()
+        if q is not None:
+            return qs.filter(name__startswith=q)
+        return qs
+
 class WeightViewSet(LoginRequiredMixin, ListView):
     model = Weight
     paginate_by = 5

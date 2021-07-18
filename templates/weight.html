@@ -43,7 +43,7 @@
         var paid_off = $('#paid_off').val();
 
         var tara = parseFloat(bruto) - parseFloat(netto);
-        var amount_weight = parseFloat(netto) - (parseFloat(netto) * (parseFloat(discount) / 100));
+        var amount_weight = parseFloat(tara) - (parseFloat(tara) * (parseFloat(discount) / 100));
         var amount_price = (amount_weight * price);
         var csrfmiddlewaretoken = $('#csrfmiddlewaretoken').val();
         $.ajax({
@@ -152,7 +152,7 @@
         var price = $('#price').val();
         var paid_off = $('#paid_off').val();
         var tara = parseFloat(bruto) - parseFloat(netto);
-        var amount_weight = parseFloat(netto) - (parseFloat(netto) * (parseFloat(discount) / 100));
+        var amount_weight = parseFloat(tara) - (parseFloat(tara) * (parseFloat(discount) / 100));
         var amount_price = (amount_weight * price);
         var csrfmiddlewaretoken = $('#csrfmiddlewaretoken').val();
 

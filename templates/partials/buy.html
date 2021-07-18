@@ -8,6 +8,17 @@
 </div>
 <div class="row py-5 mx-4">
     <div class="col-12">
+        <form action="" class="form-inline mb-2">
+            <div class="form-group mr-2">
+                <label for="search" class="sr-only">Password</label>
+                <input type="text" class="form-control" name="q" id="search" placeholder="Cari..">
+            </div>
+            <button type="submit" class="btn btn-success">
+                Cari
+            </button>
+        </form>
+    </div>
+    <div class="col-12">
         <table class="table table-sm table-bordered bg-success text-white text-center">
             <thead>
                 <tr>
@@ -40,18 +51,20 @@
                     <td>{{ i.amount_weight }}</td>
                     <td>{{ i.price }}</td>
                     <td>{{ i.amount_price }}</td>
-                    <td>                        
+                    <td>
                         {% if  i.paid_off %}
-                            Lunas
+                        Lunas
                         {% else %}
-                            Belum Lunas
-                        {% endif %}    
+                        Belum Lunas
+                        {% endif %}
                     </td>
                     <td>{{ i.created_at }}</td>
                     <td>{{ i.updated_at }}</td>
                     <td>
-                        <button onclick="ubah({{ i.id }})" class="border-0 bg-transparent text-white" id="ubah">Ubah</button> | 
-                        <button onclick="hapus({{ i.id }}, '{{ i.name }}')" class="border-0 bg-transparent text-white" id="hapus">Hapus</button>
+                        <button onclick="ubah({{ i.id }})" class="border-0 bg-transparent text-white"
+                            id="ubah">Ubah</button> |
+                        <button onclick="hapus({{ i.id }}, '{{ i.name }}')" class="border-0 bg-transparent text-white"
+                            id="hapus">Hapus</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -67,7 +80,8 @@
                         aria-disabled="true">Previous</a>
                 </li>
                 {% endif %}
-                <li class="page-item"><a class="px-2 text-success" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+                <li class="page-item"><a class="px-2 text-success" href="#">Page {{ page_obj.number }} of
+                        {{ page_obj.paginator.num_pages }}</a></li>
                 {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="px-2 text-success" href="?page={{ page_obj.next_page_number }}">Next</a>
