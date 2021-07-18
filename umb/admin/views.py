@@ -41,7 +41,7 @@ class LogoutViewset(LogoutView):
     
 class BuyViewSet(LoginRequiredMixin, ListView):
     model = Weight
-    paginate_by = 10
+    paginate_by = 15
     template_name = 'buy.html'
 
     def get_queryset(self):
