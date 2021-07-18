@@ -1,0 +1,177 @@
+{% load static %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center">
+            <h4 class="text-muted font-weight-bold text-uppercase">Pembelian</h4>
+        </div>
+    </div>
+</div>
+<div class="row pt-5 justify-content-between align-items-center">
+    <div class="col-4 ml-5">
+        <div>
+            <div class="form-group text-center">
+                <h4 class="text-muted font-weight-bold text-uppercase">Waktu Sekarang</h4>
+                <p>
+                    <div class="col">
+                        <div id="clock" class="text-muted font-weight-bold"></div>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <div>
+            <div class="form-group row">
+                <input type='hidden' id="csrfmiddlewaretoken" name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+                <label for="alert" class="col-3 col-form-label text-muted font-weight-bold">Lansiran</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" id="alert" name="alert" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-3 col-form-label text-muted font-weight-bold">Nama</label>
+                <div class="col-9">
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="discount" class="col-3 col-form-label text-muted font-weight-bold">Potong</label>
+                <div class="col-9">
+                    <input type="number" class="form-control" id="discount" name="discount" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="price" class="col-3 col-form-label text-muted font-weight-bold">Harga
+                    TBS/Kg</label>
+                <div class="col-9">
+                    <input type="number" class="form-control" id="price" name="price" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="paid_off" class="col-3 col-form-label text-muted font-weight-bold">Lunas</label>
+                <div class="col-9">
+                    <select name="paid_off" id="paid_off" class="form-control" required>
+                        <option value="true">Ya</option>
+                        <option value="false">Belum Lunas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <input type="hidden" id="id_perbaharui" name="id_perbaharui">
+                    <button type="submit" id="simpan_saja" class="btn btn-success btn-block">Simpan</button>
+                    <button type="submit" id="perbaharui" class="btn btn-success btn-block">Perbaharui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mr-5">
+        <div>
+            <h3 class="text-muted text-center font-weight-bold" id="name_weight"></h3>
+        </div>
+        <div>
+            <div class="form-group">
+                <textarea name="netto" id="truck_blank" cols="30" rows="1"
+                    class="form-control text-center font-weight-bolder" style="font-size:100px"></textarea>
+                <textarea name="bruto" id="truck_fill" cols="30" rows="1" class="form-control text-center font-weight-bolder"
+                    style="font-size:100px"></textarea>
+                <div class="row py-2">
+                    <div class="col">
+                        <button id="btn_truck_fill" class="btn btn-success btn-block">TRUCK ISI</button>
+                    </div>
+                    <div class="col">
+                        <button id="btn_truck_blank" class="btn btn-success btn-block">TRUCK KOSONG</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card bg-primary">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="{% static 'img/logo.png' %}" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-9 text-center text-white">
+                                <p>CV. USAHA MAJU BERSAMA</p>
+                                <p>Alamat: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Laudantium vitae
+                                    consequuntur, </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-inline-block">
+        </div>
+    </div>
+</div>
+<div class="row mx-4">
+    <div class="col-12">
+        <table class="table table-sm table-bordered bg-success text-white text-center">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Lansiran</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Bruto</th>
+                    <th scope="col">Tarra</th>
+                    <th scope="col">Netto</th>
+                    <th scope="col">Potong (%)</th>
+                    <th scope="col">Jumlah (Kg)</th>
+                    <th scope="col">Harga TBS(TBS/Kg)</th>
+                    <th scope="col">Jumlah (Rp)</th>
+                    <th scope="col">Lunas</th>
+                    <th scope="col">Dibuat</th>
+                    <th scope="col">Diperbaharui</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }} </th>
+                    <td>{{ i.alert }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.bruto }}</td>
+                    <td>{{ i.tara }}</td>
+                    <td>{{ i.netto }}</td>
+                    <td>{{ i.discount }}</td>
+                    <td>{{ i.amount_weight }}</td>
+                    <td>{{ i.price }}</td>
+                    <td>{{ i.amount_price }}</td>
+                    <td>                        
+                        {% if  i.paid_off %}
+                            Lunas
+                        {% else %}
+                            Belum Lunas
+                        {% endif %}    
+                    </td>
+                    <td>{{ i.created_at }}</td>
+                    <td>{{ i.updated_at }}</td>
+                    <td>
+                        <button onclick="ubah({{ i.id }})" class="border-0 bg-transparent text-white" id="ubah">Ubah</button> | 
+                        <button onclick="hapus({{ i.id }}, '{{ i.name }}')" class="border-0 bg-transparent text-white" id="hapus">Hapus</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="px-2 text-success" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
+                        aria-disabled="true">Previous</a>
+                </li>
+                {% endif %}
+                <li class="page-item"><a class="px-2 text-success" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="px-2 text-success" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>

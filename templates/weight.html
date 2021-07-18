@@ -1,0 +1,197 @@
+{% extends 'app.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include 'partials/topbar.html' %}
+{% endblock content %}
+
+
+{% block custom_js %}
+<script>
+    $('#clock').clock({
+        "langSet": "id"
+    });
+
+    $("#id_perbaharui").hide();
+    $('#perbaharui').hide();
+    $('#truck_blank').show();
+    $('#truck_fill').hide();
+    $('#btn_truck_blank').addClass('disabled');
+    $('#name_weight').text('Netto');
+    $('#btn_truck_blank').click(() => {
+        $('#truck_blank').show();
+        $('#truck_fill').hide();
+        $('#btn_truck_blank').addClass('disabled');
+        $('#btn_truck_fill').removeClass('disabled');
+        $('#name_weight').text('Netto');
+    });
+    $('#btn_truck_fill').click(() => {
+        $('#truck_blank').hide();
+        $('#truck_fill').show();
+        $('#btn_truck_blank').removeClass('disabled');
+        $('#btn_truck_fill').addClass('disabled');
+        $('#name_weight').text('Bruto');
+    });
+    $('#simpan_saja').click(() => {
+        var netto = $('#truck_blank').val();
+        var bruto = $('#truck_fill').val();
+        var alret = $('#alert').val();
+        var name = $('#name').val();
+        var discount = $('#discount').val();
+        var price = $('#price').val();
+        var paid_off = $('#paid_off').val();
+
+        var tara = parseFloat(bruto) - parseFloat(netto);
+        var amount_weight = (parseFloat(netto) / (parseFloat(discount) / 100));
+        var amount_price = (amount_weight * price);
+        var csrfmiddlewaretoken = $('#csrfmiddlewaretoken').val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'admin-weight-create' %}",
+            data: {
+                'alert': alret,
+                'name': name,
+                'bruto': bruto,
+                'tara': tara,
+                'netto': netto,
+                'discount': discount,
+                'price': price,
+                'amount_weight': amount_weight,
+                'amount_price': amount_price,
+                'paid_off': paid_off,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken
+            },
+            success: () => {
+                alert('berhasil ditambahkan');
+                window.location.reload();
+            },
+            error: (err) => {
+                var myObject = err.responseJSON.error;
+
+                function printObject(o) {
+                    var out = '';
+                    for (var p in o) {
+                        out += p + ': ' + o[p] + '\n';
+                    }
+                    alert(out);
+                }
+                printObject(myObject);
+            }
+        });
+    });
+</script>
+<script>
+    function hapus(id, weight) {
+        var action = confirm("Apakah anda yakin menghapus '" + weight + "'?");
+        if (action != false) {
+            $.ajax({
+                url: '{% url "admin-weight-delete" %}',
+                data: {
+                    'id': id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    alert('Data berhasil dihapus');
+                    $.ajax({
+                        url: window.location.href,
+                        success: function (res) {
+                            window.location.reload();
+
+                        },
+                        error: function (res) {
+                            window.location.href = window.location.origin;
+                        }
+                    });
+                },
+                error: function () {
+                    alert('Terjadi kesalahan, harap ulangi kembali.');
+                }
+            });
+        }
+    }
+</script>
+<script>
+    function ubah(id){
+        $.ajax({
+            url: '{% url "admin-weight-update" %}',
+            data: {
+                'id': id,
+            },
+            dataType: 'json',
+            success: function (data) {
+                value = $.parseJSON(data.instance)[0].fields;
+                $('#truck_blank').val(value.netto);
+                $('#truck_fill').val(value.bruto);
+                $('#alert').val(value.alert);
+                $('#name').val(value.name);
+                $('#discount').val(value.discount);
+                $('#price').val(value.price);
+                paid_off = value.paid_off == true ? 'on' : 'off';
+                $('#paid_off').val(paid_off);
+                $('#id_perbaharui').val(id);
+
+
+                $("#simpan_saja").hide();
+                $("#perbaharui").show();
+                $("#id_perbaharui").show();
+            },
+            error: function () {
+                alert('Terjadi kesalahan, harap ulangi kembali.');
+            }
+        });
+    }
+    
+    $('#perbaharui').click(() => {
+        var id = $('#id_perbaharui').val();
+        var netto = $('#truck_blank').val();
+        var bruto = $('#truck_fill').val();
+        var alret = $('#alert').val();
+        var name = $('#name').val();
+        var discount = $('#discount').val();
+        var price = $('#price').val();
+        var paid_off = $('#paid_off').val();
+        var tara = parseFloat(bruto) - parseFloat(netto);
+        var amount_weight = (parseFloat(netto) / (parseFloat(discount) / 100));
+        var amount_price = (amount_weight * price);
+        var csrfmiddlewaretoken = $('#csrfmiddlewaretoken').val();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'admin-weight-update' %}",
+            data: {
+                'id': id,
+                'alert': alret,
+                'name': name,
+                'bruto': bruto,
+                'tara': tara,
+                'netto': netto,
+                'discount': discount,
+                'price': price,
+                'amount_weight': amount_weight,
+                'amount_price': amount_price,
+                'paid_off': paid_off,
+                'csrfmiddlewaretoken': csrfmiddlewaretoken
+            },
+            success: () => {
+                alert(name + ' berhasil diperbaharui!');
+                window.location.reload();
+            },
+            error: (err) => {
+                var myObject = err.responseJSON.error;
+
+                function printObject(o) {
+                    var out = '';
+                    for (var p in o) {
+                        out += p + ': ' + o[p] + '\n';
+                    }
+                    alert(out);
+                }
+                printObject(myObject);
+            }
+        });
+    });
+    
+        
+</script>
+{% endblock custom_js %}

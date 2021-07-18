@@ -1,0 +1,33 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+*.tmp
+.idea
+dump.rdb
+
+# Python Generated Files #
+##########################
+*.pyc
+*.map
+*.sqlite3
+__pycache__
+
+
+# DEV Ignoring Files #
+######################
+.env
+.vscode
+
+/venv/
+
+celerybeat-schedule
+
+/staticfiles/
+/mediafiles/

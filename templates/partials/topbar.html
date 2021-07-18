@@ -1,0 +1,27 @@
+<div class="h-100">
+    <div class="container-fluid h-100">
+        <nav>
+            <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                <a class="nav-link {% if request.resolver_match.url_name == 'admin-weight' %}active{% endif %}" id="nav-one-tab" href="{% url 'admin-weight' %}" role="tab"
+                    aria-controls="nav-one  text-muted" aria-selected="true">Data Penimbangan</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'admin-buy' %}active{% endif %}" id="nav-two-tab" href="{% url 'admin-buy' %}" role="tab"
+                    aria-controls="nav-two text-muted" aria-selected="false">Data Pembelian</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'admin-change-password' %}active{% endif %}" id="nav-three-tab" href="{% url 'admin-change-password' %}" role="button"
+                    aria-controls="nav-three text-muted" aria-selected="false">Ganti Kata Sandi</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'admin-logout' %}active{% endif %}" id="nav-three-tab" href="{% url 'admin-logout' %}" role="button"
+                    aria-controls="nav-three text-muted" aria-selected="false">Keluar</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-weight' %}show active{% endif %}" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                {% if request.resolver_match.url_name == 'admin-weight' %}{% include 'partials/weight.html' %}{% endif %}
+            </div>
+            <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-buy' %}show active{% endif %}" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+                {% if request.resolver_match.url_name == 'admin-buy' %}{% include 'partials/buy.html' %}{% endif %}
+            </div>
+            <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-change-password' %}show active{% endif %}" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+                {% if request.resolver_match.url_name == 'admin-change-password' %}{% include 'partials/change-password.html' %}{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
