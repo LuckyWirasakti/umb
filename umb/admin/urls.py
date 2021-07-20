@@ -1,4 +1,4 @@
-from umb.admin.views import BuyViewSet, ChangePasswordViewSet, CreateWeightViewSet, DeleteWeightViewSet, LoginViewSet, LogoutViewset, UpdateWeightViewSet, WeightViewSet
+from umb.admin.views import BuyViewSet, ChangePasswordViewSet, CreateWeightViewSet, DeleteWeightViewSet, LoginViewSet, LogoutViewset, PrintMobileViewset, PrintViewset, UpdateWeightViewSet, WeightViewSet
 from django.urls import path
 
 urlpatterns = [
@@ -9,5 +9,7 @@ urlpatterns = [
     path('weight/update', UpdateWeightViewSet.as_view(), name='admin-weight-update'),
     path('weight/delete', DeleteWeightViewSet.as_view(), name='admin-weight-delete'),
     path('buy', BuyViewSet.as_view(), name='admin-buy'),
+    path('print', PrintViewset.as_view(), name='admin-print'),
+    path('print/mobile/<int:pk>', PrintMobileViewset.as_view(), name='admin-print-mobile'),
     path('change-password', ChangePasswordViewSet.as_view(), name='admin-change-password'),
 ]

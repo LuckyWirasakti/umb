@@ -7,7 +7,7 @@ from django.urls.base import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.detail import DetailView
 from django.http import JsonResponse
 from django.views.generic import View
 
@@ -115,3 +115,18 @@ class DeleteWeightViewSet(View):
                 return JsonResponse({},status=204)
             return JsonResponse({},status=404)
         return JsonResponse({},status=400)
+
+class PrintViewset(ListView):
+    model = Weight
+    template_name = 'print.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q', None)
+        qs = super().get_queryset()
+        if q is not None:
+            return qs.filter(name__icontains=q)
+        return qs
+
+class PrintMobileViewset(DetailView):
+    model = Weight
+    template_name = 'print-mobile.html'

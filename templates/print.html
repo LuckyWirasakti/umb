@@ -1,0 +1,78 @@
+{% load humanize %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <title>Document</title>
+</head>
+
+<body onload="window.print()">
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="{% static 'img/logo.png' %}" class="img-fluid" style="max-height:200px">
+                    <p>CV. USAHA MAJU BERSAMA</p>
+                    <p>Alamat: Desa Blang Luah, Kac. Darul Makmur, Kab. Nangan Raya, Prov. Aceh</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Lansiran</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Bruto</th>
+                                    <th scope="col">Tarra</th>
+                                    <th scope="col">Netto</th>
+                                    <th scope="col">Potong (%)</th>
+                                    <th scope="col">Jumlah (Kg)</th>
+                                    <th scope="col">Harga TBS(TBS/Kg)</th>
+                                    <th scope="col">Jumlah (Rp)</th>
+                                    <th scope="col">Lunas</th>
+                                    <th scope="col">Dibuat</th>
+                                    <th scope="col">Diperbaharui</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in object_list %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }} </th>
+                                    <td>{{ i.alert }}</td>
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.bruto | intcomma }}</td>
+                                    <td>{{ i.tara | intcomma }}</td>
+                                    <td>{{ i.netto | intcomma }}</td>
+                                    <td>{{ i.discount }}</td>
+                                    <td>{{ i.amount_weight | intcomma }}</td>
+                                    <td>{{ i.price | intcomma }}</td>
+                                    <td>{{ i.amount_price | intcomma }}</td>
+                                    <td>
+                                        {% if  i.paid_off %}
+                                        Lunas
+                                        {% else %}
+                                        Belum Lunas
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ i.created_at }}</td>
+                                    <td>{{ i.updated_at }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -36,6 +36,7 @@
                     <th scope="col">Lunas</th>
                     <th scope="col">Dibuat</th>
                     <th scope="col">Diperbaharui</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +61,7 @@
                     </td>
                     <td>{{ i.created_at }}</td>
                     <td>{{ i.updated_at }}</td>
+                    <td><a href="{% url 'admin-print-mobile' i.id %}" target="blank" class="text-white">Cetak (POS)</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -87,6 +89,6 @@
 </div>
 <div class="row">
     <div class="col-12 text-center">
-        <button class="btn btn-success" onclick="printDiv('printTable')">Cetak</button>
+        <a href="{% url 'admin-print' %}?{{request.GET.urlencode}}" target="blank" class="btn btn-success">Cetak</a>
     </div>
 </div>
