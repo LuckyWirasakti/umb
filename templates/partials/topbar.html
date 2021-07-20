@@ -3,7 +3,7 @@
         <nav>
             <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-weight' %}active{% endif %}" id="nav-one-tab" href="{% url 'admin-weight' %}" role="tab"
-                    aria-controls="nav-one  text-muted" aria-selected="true">Data Penimbangan</a>
+                    aria-controls="nav-one  text-muted" aria-selected="true">Penimbangan</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-buy' %}active{% endif %}" id="nav-two-tab" href="{% url 'admin-buy' %}" role="tab"
                     aria-controls="nav-two text-muted" aria-selected="false">Data Pembelian</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-change-password' %}active{% endif %}" id="nav-three-tab" href="{% url 'admin-change-password' %}" role="button"
