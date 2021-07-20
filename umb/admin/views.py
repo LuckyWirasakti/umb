@@ -48,13 +48,20 @@ class BuyViewSet(LoginRequiredMixin, ListView):
         q = self.request.GET.get('q', None)
         qs = super().get_queryset()
         if q is not None:
-            return qs.filter(name__contains=q)
+            return qs.filter(name__icontains=q)
         return qs
 
 class WeightViewSet(LoginRequiredMixin, ListView):
     model = Weight
     paginate_by = 5
     template_name = 'weight.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q', None)
+        qs = super().get_queryset()
+        if q is not None:
+            return qs.filter(name__icontains=q)
+        return qs
 
 
 class ChangePasswordViewSet(LoginRequiredMixin, PasswordChangeView):
