@@ -6,6 +6,8 @@
                     aria-controls="nav-one  text-muted" aria-selected="true">Penimbangan</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-buy' %}active{% endif %}" id="nav-two-tab" href="{% url 'admin-buy' %}" role="tab"
                     aria-controls="nav-two text-muted" aria-selected="false">Data Pembelian</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'admin-master' %}active{% endif %}" id="nav-two-tab" href="{% url 'admin-master' %}" role="tab"
+                    aria-controls="nav-four text-muted" aria-selected="false">Master</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-change-password' %}active{% endif %}" id="nav-three-tab" href="{% url 'admin-change-password' %}" role="button"
                     aria-controls="nav-three text-muted" aria-selected="false">Ganti Kata Sandi</a>
                 <a class="nav-link {% if request.resolver_match.url_name == 'admin-logout' %}active{% endif %}" id="nav-three-tab" href="{% url 'admin-logout' %}" role="button"
@@ -15,6 +17,9 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-weight' %}show active{% endif %}" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
                 {% if request.resolver_match.url_name == 'admin-weight' %}{% include 'partials/weight.html' %}{% endif %}
+            </div>
+            <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-master' %}show active{% endif %}" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
+                {% if request.resolver_match.url_name == 'admin-master' %}{% include 'partials/master.html' %}{% endif %}
             </div>
             <div class="tab-pane fade {% if request.resolver_match.url_name == 'admin-buy' %}show active{% endif %}" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
                 {% if request.resolver_match.url_name == 'admin-buy' %}{% include 'partials/buy.html' %}{% endif %}

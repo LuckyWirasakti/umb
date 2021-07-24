@@ -87,7 +87,11 @@
         </nav>
     </div>
 </div>
-<div class="row">
+<div class="row mx-4">
+    <div class="col-12 text-left font-weight-bold text-muted">
+        <p>Total Jumlah (Kg): {{ amount_weight | intcomma }}</p>
+        <p>Total Jumlah (RP): {{ amount_price | intcomma }}</p>
+    </div>
     <div class="col-12 text-center">
         <a href="{% url 'admin-print' %}?{{request.GET.urlencode}}" target="blank" class="btn btn-success">Cetak</a>
     </div>

@@ -9,6 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <title>Document</title>
+    <style>
+        td, p {
+            font-weight: 900;
+            font-size: 16px;
+        }
+    </style>
+    <style>
+        @media print {
+            .hidden-print,
+            .hidden-print * {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body onload="window.print()">

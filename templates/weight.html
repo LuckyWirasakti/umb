@@ -127,7 +127,7 @@
                 $('#name').val(value.name);
                 $('#discount').val(value.discount);
                 $('#price').val(value.price);
-                paid_off = value.paid_off == true ? 'on' : 'off';
+                paid_off = value.paid_off ? "true": "false";
                 $('#paid_off').val(paid_off);
                 $('#id_perbaharui').val(id);
 

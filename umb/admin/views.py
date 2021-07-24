@@ -1,6 +1,7 @@
 from django.core import serializers
-from umb.admin.forms import WeightForm
-from umb.admin.models import Weight
+from django.views.generic.edit import CreateView
+from umb.admin.forms import MasterForm, WeightForm
+from umb.admin.models import Master, Weight
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.urls.base import reverse_lazy
@@ -10,6 +11,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.http import JsonResponse
 from django.views.generic import View
+from django.db.models import Avg, Count, Min, Sum
 
 class LoginFormSet(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -50,6 +52,12 @@ class BuyViewSet(LoginRequiredMixin, ListView):
         if q is not None:
             return qs.filter(name__icontains=q)
         return qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['amount_weight'] = sum(self.get_queryset().values_list('amount_weight', flat=True))
+        context['amount_price'] = sum(self.get_queryset().values_list('amount_price', flat=True))
+        return context
 
 class WeightViewSet(LoginRequiredMixin, ListView):
     model = Weight
@@ -62,7 +70,13 @@ class WeightViewSet(LoginRequiredMixin, ListView):
         if q is not None:
             return qs.filter(name__icontains=q)
         return qs
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['alert'] = Master.objects.filter(key='alert')
+        context['discount'] = Master.objects.filter(key='discount')
+        context['price'] = Master.objects.filter(key='price')
+        return context
 
 class ChangePasswordViewSet(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeFormSet
@@ -126,7 +140,19 @@ class PrintViewset(ListView):
         if q is not None:
             return qs.filter(name__icontains=q)
         return qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['amount_weight'] = sum(self.get_queryset().values_list('amount_weight', flat=True))
+        context['amount_price'] = sum(self.get_queryset().values_list('amount_price', flat=True))
+        return context
 
 class PrintMobileViewset(DetailView):
     model = Weight
     template_name = 'print-mobile.html'
+
+
+class MasterViewSet(CreateView):
+    form_class = MasterForm
+    template_name = 'master.html'
+    success_url = reverse_lazy('admin-weight')

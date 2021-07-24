@@ -1,4 +1,4 @@
-from umb.admin.models import Weight
+from umb.admin.models import Master, Weight
 from django.contrib import admin
 
 # Register your models here.
@@ -14,3 +14,6 @@ class WeightAdmin(admin.ModelAdmin):
             object.save()
     duplicate.short_description = "Duplicate selected record"
 admin.site.register(Weight, WeightAdmin)
+
+
+admin.site.register(Master)

@@ -1,5 +1,22 @@
 from django.db import models
 
+
+class Master(models.Model):
+    KEY_CHOICES = (
+        ('alert', 'Lansiran'),
+        ('discount', 'Potongan'),
+        ('price', 'Harga'),
+    )
+    key = models.CharField(max_length=191, choices=KEY_CHOICES)
+    value = models.CharField(max_length=191)
+    class Meta:
+        ordering =['-id']
+        verbose_name = "Master"
+        verbose_name_plural = "Masters"
+
+    def __str__(self):
+        return self.key
+
 # Create your models here.
 class Weight(models.Model):
     alert = models.CharField(max_length=191)
