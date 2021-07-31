@@ -45,13 +45,13 @@
                     <th scope="row">{{ forloop.counter }} </th>
                     <td>{{ i.alert }}</td>
                     <td>{{ i.name }}</td>
-                    <td>{{ i.bruto | intcomma }}</td>
-                    <td>{{ i.tara | intcomma }}</td>
-                    <td>{{ i.netto | intcomma }}</td>
+                    <td>{{ i.bruto | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.tara | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.netto | floatformat:"0" | intcomma }}</td>
                     <td>{{ i.discount }}</td>
-                    <td>{{ i.amount_weight | intcomma }}</td>
-                    <td>{{ i.price | intcomma }}</td>
-                    <td>{{ i.amount_price | intcomma }}</td>
+                    <td>{{ i.amount_weight | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.price | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.amount_price | floatformat:"0" | intcomma }}</td>
                     <td>
                         {% if  i.paid_off %}
                         Lunas
@@ -89,8 +89,8 @@
 </div>
 <div class="row mx-4">
     <div class="col-12 text-left font-weight-bold text-muted">
-        <p>Total Jumlah (Kg): {{ amount_weight | intcomma }}</p>
-        <p>Total Jumlah (RP): {{ amount_price | intcomma }}</p>
+        <p>Total Jumlah (Kg): {{ amount_weight | floatformat:"0" | intcomma }}</p>
+        <p>Total Jumlah (RP): {{ amount_price | floatformat:"0" | intcomma }}</p>
     </div>
     <div class="col-12 text-center">
         <a href="{% url 'admin-print' %}?{{request.GET.urlencode}}" target="blank" class="btn btn-success">Cetak</a>
