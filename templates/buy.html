@@ -1,0 +1,16 @@
+{% extends 'app.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include 'partials/topbar.html' %}
+{% endblock content %}
+
+
+{% block custom_js %}
+<script>
+    $('#clock').clock({
+        "langSet": "id"
+    });
+</script>
+{% endblock custom_js %}

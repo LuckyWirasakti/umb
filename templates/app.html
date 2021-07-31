@@ -1,0 +1,22 @@
+{% load static %}
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+
+    <title>Hello, world!</title>
+  </head>
+  <body class="bg-warning h-100">
+    <section class="h-100">
+        {% block content %}{% endblock content %}
+    </section>
+  </body>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/jclock.js' %}"></script>
+  
+  {% block custom_js %}{% endblock custom_js %}
+    
+</html>

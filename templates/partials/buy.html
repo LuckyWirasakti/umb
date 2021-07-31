@@ -1,0 +1,98 @@
+{% load static %}
+{% load humanize %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center">
+            <h4 class="text-muted font-weight-bold text-uppercase">Data Pembelian</h4>
+        </div>
+    </div>
+</div>
+<div class="row py-5 mx-4">
+    <div class="col-12">
+        <form action="" class="form-inline mb-2">
+            <div class="form-group mr-2">
+                <label for="search" class="sr-only">Password</label>
+                <input type="text" class="form-control" name="q" id="search" placeholder="Cari..">
+            </div>
+            <button type="submit" class="btn btn-success">
+                Cari
+            </button>
+        </form>
+    </div>
+    <div class="col-12" id="printTable">
+        <table class="table table-sm table-bordered bg-success text-white text-center">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Lansiran</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Bruto</th>
+                    <th scope="col">Tarra</th>
+                    <th scope="col">Netto</th>
+                    <th scope="col">Potong (%)</th>
+                    <th scope="col">Jumlah (Kg)</th>
+                    <th scope="col">Harga TBS(TBS/Kg)</th>
+                    <th scope="col">Jumlah (Rp)</th>
+                    <th scope="col">Lunas</th>
+                    <th scope="col">Dibuat</th>
+                    <th scope="col">Diperbaharui</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in object_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }} </th>
+                    <td>{{ i.alert }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.bruto | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.tara | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.netto | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.discount }}</td>
+                    <td>{{ i.amount_weight | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.price | floatformat:"0" | intcomma }}</td>
+                    <td>{{ i.amount_price | floatformat:"0" | intcomma }}</td>
+                    <td>
+                        {% if  i.paid_off %}
+                        Lunas
+                        {% else %}
+                        Belum Lunas
+                        {% endif %}
+                    </td>
+                    <td>{{ i.created_at }}</td>
+                    <td>{{ i.updated_at }}</td>
+                    <td><a href="{% url 'admin-print-mobile' i.id %}" target="blank" class="text-white">Cetak (POS)</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="px-2 text-success" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
+                        aria-disabled="true">Previous</a>
+                </li>
+                {% endif %}
+                <li class="page-item"><a class="px-2 text-success" href="#">Page {{ page_obj.number }} of
+                        {{ page_obj.paginator.num_pages }}</a></li>
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="px-2 text-success" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="row mx-4">
+    <div class="col-12 text-left font-weight-bold text-muted">
+        <p>Total Jumlah (Kg): {{ amount_weight | floatformat:"0" | intcomma }}</p>
+        <p>Total Jumlah (RP): {{ amount_price | floatformat:"0" | intcomma }}</p>
+    </div>
+    <div class="col-12 text-center">
+        <a href="{% url 'admin-print' %}?{{request.GET.urlencode}}" target="blank" class="btn btn-success">Cetak</a>
+    </div>
+</div>
