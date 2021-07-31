@@ -12,7 +12,7 @@
     <style>
         td, p {
             font-weight: 900;
-            font-size: 16px;
+            font-size: 32px;
         }
     </style>
     <style>
@@ -55,15 +55,15 @@
                             </tr>
                             <tr>
                                 <td>Bruto</td>
-                                <td>{{ object.bruto | intcomma }}</td>
+                                <td>{{ object.bruto | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Tarra</td>
-                                <td>{{ object.tara | intcomma }}</td>
+                                <td>{{ object.tara | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Netto</td>
-                                <td>{{ object.netto | intcomma }}</td>
+                                <td>{{ object.netto | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Potong (%)</td>
@@ -71,15 +71,15 @@
                             </tr>
                             <tr>
                                 <td>Jumlah (Kg)</td>
-                                <td>{{ object.amount_weight | intcomma }}</td>
+                                <td>{{ object.amount_weight | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Harga TBS(TBS/Kg)</td>
-                                <td>{{ object.price | intcomma }}</td>
+                                <td>{{ object.price | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Jumlah (Rp)</td>
-                                <td>{{ object.amount_price | intcomma }}</td>
+                                <td>{{ object.amount_price | floatformat:"0" | intcomma }}</td>
                             </tr>
                             <tr>
                                 <td>Lunas</td>
